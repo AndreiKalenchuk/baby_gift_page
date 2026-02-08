@@ -178,16 +178,21 @@
             margin-top: 30px;
             padding-top: 30px;
             border-top: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .qr-section-title {
             color: #999;
             font-size: 0.9em;
-            margin-bottom: 15px;
+            margin: 0;
         }
 
         .qr-code-container {
-            margin: 15px 0;
+            margin: 0;
             padding: 15px;
             background: linear-gradient(135deg, #D4F1F9 0%, #B4E7FF 100%);
             border-radius: 15px;
@@ -302,8 +307,6 @@
         </div>
 
         <div id="venmo" class="tab-content active">
-            <div class="app-name">💙 Venmo</div>
-            
             <a href="https://venmo.com/u/Andre-Kalenchuk" class="payment-button" target="_blank">
                 📱 Open Venmo to Send Gift
             </a>
@@ -328,8 +331,6 @@
         </div>
 
         <div id="zelle" class="tab-content">
-            <div class="app-name">💛 Zelle</div>
-            
             <a href="mailto:your-email@example.com?subject=Baby%20Gift&body=Please%20send%20via%20Zelle%20to%20this%20email" class="payment-button">
                 📱 Send via Zelle
             </a>
@@ -359,8 +360,6 @@
         </div>
 
         <div id="cashapp" class="tab-content">
-            <div class="app-name">💚 Cash App</div>
-            
             <a href="https://cash.app/$YourCashTag" class="payment-button" target="_blank">
                 📱 Open Cash App to Send Gift
             </a>
