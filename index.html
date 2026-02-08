@@ -1,47 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Gift for [Baby's Name]</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 2em; }
-    section { margin-bottom: 2em; }
-    .qr { width: 150px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Gift Fund - <no baby name yet></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: 
+                url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=1200'),
+                linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            filter: blur(3px);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #ff6b9d;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .baby-name {
+            font-size: 0.6em;
+            color: #c770f0;
+            font-style: italic;
+        }
+
+        .message {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #ff6b9d;
+            line-height: 1.8;
+        }
+
+        .message p {
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .message strong {
+            color: #ff6b9d;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: #666;
+            font-family: inherit;
+        }
+
+        .tab-button:hover {
+            background: rgba(255, 107, 157, 0.1);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c770f0 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-button {
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c770f0 100%);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .payment-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.5);
+        }
+
+        .payment-button:active {
+            transform: translateY(-1px);
+        }
+
+        .qr-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px dashed #ddd;
+        }
+
+        .qr-section-title {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .qr-code-container {
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            max-width: 100%;
+            border: 5px solid white;
+            border-radius: 10px;
+            display: block;
+            background: #f0f0f0;
+            object-fit: cover;
+        }
+
+        .instructions {
+            text-align: left;
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b9d;
+        }
+
+        .instructions h3 {
+            color: #ff6b9d;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #555;
+            line-height: 2;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .app-name {
+            font-size: 1.8em;
+            color: #ff6b9d;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer strong {
+            color: #ff6b9d;
+            display: block;
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .tab-button {
+                font-size: 0.95em;
+                padding: 12px 8px;
+            }
+
+            .qr-code {
+                width: 240px;
+                height: 240px;
+            }
+
+            .message p {
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Gift for [Baby's Name]</h1>
-  <section>
-    <h2>Option 1: Direct to Investment Account</h2>
-    <p>Send a check to be deposited in [Baby's Name]'s custodial account:</p>
-    <ul>
-      <li>
-        <strong>Payable to:</strong> Fidelity Investments FBO [Baby's Name]
-      </li>
-      <li>
-        <strong>Mail to:</strong> [Your broker’s deposit address]
-      </li>
-      <li>
-        <strong>Note:</strong> Contact me at <a href="mailto:your@email.com">your@email.com</a> if you need wiring info or want to send via Schwab/Vanguard.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>Option 2: Venmo or Zelle</h2>
-    <p>You can send a gift via Venmo (@YourVenmo) or Zelle ([YourZelle]).</p>
-    <img src="venmo-qr.png" class="qr" alt="Venmo QR Code">
-    <img src="zelle-qr.png" class="qr" alt="Zelle QR Code">
-    <p><i>Please email me after sending so I know who contributed:</i></p>
-    <a href="mailto:your@email.com?subject=Gift%20for%20Baby&body=I%20sent%20you%20a%20gift%20via%20Venmo/Zelle">Send Email</a>
-  </section>
-  <section>
-    <h2>Option 3: Other</h2>
-    <p>Contact me for other ways to contribute or questions.</p>
-    <a href="mailto:your@email.com?subject=Gift%20for%20Baby%20Question">Email Me</a>
-  </section>
-  <section>
-    <h2>Thank You!</h2>
-    <p>Your gift will help us invest for [Baby’s Name]'s future!</p>
-  </section>
+    <div class="container">
+        <div class="header">
+            <h1>🍼 Baby Gift Fund 👶</h1>
+            <div class="baby-name">&lt;no baby name yet&gt;</div>
+        </div>
+
+        <div class="message">
+            <p>Hello dear friend! 💝</p>
+            <p>Thank you so much for investing in our kid's future! I've opened a <strong>custodial account at Fidelity</strong> that will be used for our baby's future. I will convert all contributions to ETFs and bonds.</p>
+            <p>I have a plan to contribute every year myself and encourage you to help if you can. Since Fidelity doesn't have an easy way for you to send money directly, I thought you could send me via Venmo, Cash App, or Zelle, and I will transfer it to my son's account.</p>
+            <p><strong>When sending money, please add to the message:</strong></p>
+            <ul style="margin-left: 25px; margin-top: 10px;">
+                <li>🏷️ <strong>3 names</strong> that you like or think might fit our son</li>
+                <li>💌 Any fun messages will be appreciated as well!</li>
+            </ul>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('venmo')">Venmo</button>
+            <button class="tab-button" onclick="openTab('zelle')">Zelle</button>
+            <button class="tab-button" onclick="openTab('cashapp')">Cash App</button>
+        </div>
+
+        <div id="venmo" class="tab-content active">
+            <div class="app-name">💙 Venmo</div>
+            
+            <a href="https://venmo.com/u/YourVenmoUsername" class="payment-button" target="_blank">
+                📱 Open Venmo to Send Gift
+            </a>
+            
+            <div class="instructions">
+                <h3>📱 How to Send:</h3>
+                <ol>
+                    <li>Tap the button above to open Venmo (update link with your @username)</li>
+                    <li>Make sure it's my account: <strong>Andrei Kalianchuk</strong></li>
+                    <li>Please share <strong>3 name suggestions</strong> for our son in the message</li>
+                    <li>Add your custom message 💬</li>
+                    <li>Send the gift 🎁</li>
+                </ol>
+            </div>
+
+            <div class="qr-section">
+                <div class="qr-section-title">Or scan QR code (if viewing on desktop):</div>
+                <div class="qr-code-container">
+                    <img src="venmo-qr.jpg" alt="Venmo QR Code" class="qr-code">
+                </div>
+            </div>
+        </div>
+
+        <div id="zelle" class="tab-content">
+            <div class="app-name">💛 Zelle</div>
+            
+            <a href="mailto:your-email@example.com?subject=Baby%20Gift&body=Please%20send%20via%20Zelle%20to%20this%20email" class="payment-button">
+                📱 Send via Zelle
+            </a>
+            <p style="margin-top: 15px; color: #666;">
+                <strong>Email:</strong> your-email@example.com<br>
+                <strong>Phone:</strong> (555) 123-4567
+            </p>
+            
+            <div class="instructions">
+                <h3>📱 How to Send:</h3>
+                <ol>
+                    <li>Open your bank's app and go to Zelle</li>
+                    <li>Use my email or phone number above (update with your info)</li>
+                    <li>Make sure it's my account: <strong>Andrei Kalianchuk</strong></li>
+                    <li>Please share <strong>3 name suggestions</strong> for our son in the message</li>
+                    <li>Add your custom message 💬</li>
+                    <li>Send the gift 🎁</li>
+                </ol>
+            </div>
+
+            <div class="qr-section">
+                <div class="qr-section-title">Or scan QR code (if viewing on desktop):</div>
+                <div class="qr-code-container">
+                    <img src="zelle-qr.jpg" alt="Zelle QR Code" class="qr-code">
+                </div>
+            </div>
+        </div>
+
+        <div id="cashapp" class="tab-content">
+            <div class="app-name">💚 Cash App</div>
+            
+            <a href="https://cash.app/$YourCashTag" class="payment-button" target="_blank">
+                📱 Open Cash App to Send Gift
+            </a>
+            <p style="margin-top: 15px; color: #666;">
+                <strong>Cash Tag:</strong> $YourCashTag
+            </p>
+            
+            <div class="instructions">
+                <h3>📱 How to Send:</h3>
+                <ol>
+                    <li>Tap the button above to open Cash App (update link with your $CashTag)</li>
+                    <li>Make sure it's my account: <strong>Andrei Kalianchuk</strong></li>
+                    <li>Please share <strong>3 name suggestions</strong> for our son in the note</li>
+                    <li>Add your custom message 💬</li>
+                    <li>Send the gift 🎁</li>
+                </ol>
+            </div>
+
+            <div class="qr-section">
+                <div class="qr-section-title">Or scan QR code (if viewing on desktop):</div>
+                <div class="qr-code-container">
+                    <img src="cashapp-qr.jpg" alt="Cash App QR Code" class="qr-code">
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Thank you for your generous gift! 🙏
+            <strong>It will be used wisely and invested in our son's future! 🌟</strong>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show the selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>
